@@ -1,36 +1,70 @@
-.chapter(data-title='Your New Viewsaurus Tutorial')
+.chapter(data-title='Using the Web Widget')
   .step(data-title='Welcome!', data-file='tutorial/config.json')
-    h2 Welcome to Viewsaurus
+    h2 Welcome to the RingCentral Web Widget
 
-    p Thanks for writing a Viewsaurus tutorial! If you're new to Viewsaurus, feel free to click through this brief tutorial showing you how a Viewsaurus tutorial is structured.
+    p The RingCentral Web Widget provides a fast way to add communications to your web app with a pre-built webphone that can handle voice, SMS.
 
-    p The tutorial's navigation controls are located above this text. Use <i class="fa fa-fw fa-play"></i> to move to the next step of the tutorial. Use <i class="fa fa-fw fa-play fa-rotate-180"></i> to move to the previous step of the tutorial (if there is one). Use <i class="fa fa-fw fa-list"></i> to see an overview of all the steps in the tutorial.
+    p This tutorial's navigation controls are located above this text. Use <i class="fa fa-fw fa-play"></i> to move to the next step of the tutorial. Use <i class="fa fa-fw fa-play fa-rotate-180"></i> to move to the previous step of the tutorial (if there is one). Use <i class="fa fa-fw fa-list"></i> to see an overview of all the steps in the tutorial.
 
-    p Let's begin by walking through the files generated for you in the `tutorial` directory with the `saurus new` command - those files are actually what is being used to show you this tutorial right now!
-
-  .step(data-title='Tutorial Configuration', data-file='tutorial/config.json')
+  .step(data-title='Static HTML', data-file='static_embed.html')
     :markdown
-      ## Configuration
+      ## Static HTML
 
-      The first file we'll look at is `config.json`. This contains high-level configuration information about your tutorial. This JSON file contains several properties you can declare about your tutorial:
+      To implement the Web Widget on any web page, simply add a few lines of JavaScript to instantiate the widget. This will automatically link and enable the `tel` and `sms` URI schemes if they are not already registered.
 
-      * `title`: This is the title of your tutorial which will show on the first page
-      * `description`: This is a string of text that will appear above the "Start" button for your tutorial.
-      * `repo`: This is the GitHub repo that your code lives in. Right now we assume all projects are hosted there, but we'll likely make this agnostic in the future.
-      * `heroku`: This indicates whether or not your project supports instant deployment with the [Heroku Button](https://blog.heroku.com/archives/2014/8/7/heroku-button)
+  .step(data-title='Salesforce Open CTI')
+    :markdown
+      ## Salesforce Open CTI
 
-      Now, let's take a look at the first file that contains the actual content of the tutorial, `index.jade`.
+      We will add the RingCentral Web Widget to Salesforce via the Open CTI framework.
 
-  .step(data-title='Step Two')
-    h2 Under Construction
+      ![](salesforce_CTI-Architecture-Overview.png)
 
-    p more tutorial to come.
+  .step(data-title='Creating a Call Center', data-file='salesforce_CallCenterDefinition.xml')
+    :markdown
+      ## Creating a Salesforce Call Center
 
-  //- Example: include markdown file
-    .step(data-title='Step Three', data-file='', data-highlight='')
-      include:markdown three.md
+      * Create a Call Center with `salesforce_CallCenterDefinition.xml`
+      * This uses the `/apex/RCPhone` CTI Adapter URL
 
-  //- Example: include jade file (don't need file extension)
-    .step(data-title='Step Four', data-file='', data-highlight='')
-      include four
+  .step(data-title='Create the Visualforce Page', data-file='salesforce_RCPhone_part-1_webphone.vfp')
+    :markdown
+      ## Create the Visualforce Page
 
+      The Web Widget is rendered in a Visualforce page. To create this use the following steps:
+
+      * Open the Developer Console by clicking the link from the Settings menu item.
+
+      ![](salesforce_dev-console_link.png)
+
+      * Click *File > New > Visualforce Page*
+
+      ![](salesforce_dev-console_new-vf-page.png)
+
+      * Name the page `RCPhone`
+      * Paste in the `<apex:page >` code to the right
+      * Click `Edit` > `Fix Indentation`
+
+  .step(data-title='Add to the Salesforce app')
+    :markdown
+      ## Add the Web Widget Visualforce Page to an App
+
+      Select your desired Salesforce app and add the widget using the following steps:
+
+      * Go to Salesforce Setup by clicking the Setup icon in the menu bar.
+
+      ![](salesforce_configure-app_part-1_setup-menu.png)
+
+      * Navigate to the App Manager using the Quick Find or the `Apps` > `App Manager` menu item.
+
+      ![](salesforce_configure-app_part-2_setup-app-manager.png)
+
+      * Select an existing app such as `LightningSales` or create a new app.
+
+      ![](salesforce_configure-app_part-3_select-app.png)
+
+      * Under the `Utility Bar`, add `Open CTI Softphone`
+
+      ![](salesforce_configure-app_part-4_add-opencti-softphone.png)
+
+      * Click `Save` and then `Done`
